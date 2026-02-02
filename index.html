@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIRCOSAE Party</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Initial click prompt -->
+        <div class="prompt" id="prompt">click to reveal</div>
+        
+        <!-- Letters container -->
+        <div class="letters-container" id="lettersContainer">
+            <div class="letter-group letter-group-circo">
+                <div class="letter-slot" data-letter="C1">
+                    <img src="images/C1.png" alt="C" class="letter-img" id="letter-C1">
+                </div>
+                <div class="letter-slot" data-letter="I">
+                    <img src="images/I.png" alt="I" class="letter-img" id="letter-I">
+                </div>
+                <div class="letter-slot" data-letter="R">
+                    <img src="images/R.png" alt="R" class="letter-img" id="letter-R">
+                </div>
+                <div class="letter-slot" data-letter="C2">
+                    <img src="images/C2.png" alt="C" class="letter-img" id="letter-C2">
+                </div>
+                <div class="letter-slot" data-letter="O">
+                    <img src="images/O.png" alt="O" class="letter-img" id="letter-O">
+                </div>
+            </div>
+            <div class="letter-group letter-group-sae">
+                <div class="letter-slot" data-letter="S">
+                    <img src="images/S.png" alt="S" class="letter-img" id="letter-S">
+                </div>
+                <div class="letter-slot" data-letter="A">
+                    <img src="images/A.png" alt="A" class="letter-img" id="letter-A">
+                </div>
+                <div class="letter-slot" data-letter="E">
+                    <img src="images/E.png" alt="E" class="letter-img" id="letter-E">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Airplane -->
+        <img src="images/airplane.png" alt="Airplane" class="airplane" id="airplane">
+        
+        <!-- Final reveal section -->
+        <div class="final-reveal" id="finalReveal">
+            <img src="images/logo.png" alt="CIRCOSAE Logo" class="logo">
+            <div class="party-details">
+                <div class="detail">5th February 2026</div>
+                <div class="detail">10:15pm</div>
+                <div class="detail">House 6</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Vercel Web Analytics -->
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

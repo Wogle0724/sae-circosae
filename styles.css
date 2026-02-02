@@ -1,0 +1,283 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Shadows Into Light', cursive;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Click to reveal prompt */
+.prompt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-transform: lowercase;
+    z-index: 100;
+    animation: blink 1.5s infinite;
+    pointer-events: none;
+    user-select: none;
+}
+
+.prompt.hidden {
+    display: none;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 0.2;
+    }
+}
+
+/* Letters container */
+.letters-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 10;
+}
+
+.letters-container.hidden-by-plane {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.letter-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.letter-slot {
+    width: 80px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.letter-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transform: translateY(-100vh);
+}
+
+.letter-img.revealed {
+    opacity: 1;
+    animation: fallDown 0.8s ease-out forwards;
+}
+
+.letter-img.wiggle {
+    opacity: 1;
+    transform: translateY(0);
+    animation: wiggle 2s ease-in-out infinite;
+}
+
+@keyframes fallDown {
+    from {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes wiggle {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-2px) rotate(-1deg);
+    }
+    50% {
+        transform: translateY(0) rotate(0deg);
+    }
+    75% {
+        transform: translateY(-2px) rotate(1deg);
+    }
+}
+
+/* Airplane */
+.airplane {
+    position: fixed;
+    width: 210vmax;
+    height: auto;
+    object-fit: contain;
+    left: -50%;
+    top: 130%;
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
+
+.airplane.flying {
+    opacity: 1;
+    animation: flyAcross 2s ease-in-out forwards;
+}
+
+@keyframes flyAcross {
+    0% {
+        left: -80%;
+        top: 150%;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        left: 150%;
+        top: -80%;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Final reveal section */
+.final-reveal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.final-reveal.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.logo {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 40px;
+    display: block;
+}
+
+.party-details {
+    color: #ffffff;
+    font-size: 32px;
+    line-height: 1.8;
+    letter-spacing: 1px;
+}
+
+.detail {
+    margin: 10px 0;
+}
+
+/* Mobile: scale down everything except the plane; steeper plane angle for portrait aspect */
+@media (max-width: 768px) {
+    .airplane {
+        width: 273vmax;
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .airplane.flying {
+        animation: flyAcrossMobile 2s ease-in-out forwards;
+    }
+
+    @keyframes flyAcrossMobile {
+        0% {
+            left: -120%;
+            top: 260%;
+            opacity: 1;
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+        100% {
+            left: 180%;
+            top: -160%;
+            opacity: 1;
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+    }
+
+    .prompt {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    .letters-container {
+        gap: 12px;
+    }
+
+    .letter-group {
+        gap: 3px;
+    }
+
+    .letter-slot {
+        width: 36px;
+        height: 45px;
+    }
+
+    @keyframes wiggle {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        25% {
+            transform: translateY(-1px) rotate(-1deg);
+        }
+        50% {
+            transform: translateY(0) rotate(0deg);
+        }
+        75% {
+            transform: translateY(-1px) rotate(1deg);
+        }
+    }
+
+    .logo {
+        max-width: 200px;
+        margin-bottom: 24px;
+    }
+
+    .party-details {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    .detail {
+        margin: 6px 0;
+    }
+}
