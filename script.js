@@ -7,6 +7,7 @@ const prompt = document.getElementById('prompt');
 const lettersContainer = document.getElementById('lettersContainer');
 const airplane = document.getElementById('airplane');
 const finalReveal = document.getElementById('finalReveal');
+const bgMusic = document.getElementById('bgMusic');
 
 // Click handler
 document.addEventListener('click', handleClick);
@@ -20,6 +21,14 @@ function handleClick() {
     // Check if all letters are revealed
     if (revealedLetters.length >= letters.length) {
         return; // Do nothing if all letters are already revealed
+    }
+    
+    // Update music: first click starts song at 12.5%, each click +12.5% until 100%
+    const step = 0.125;
+    const volume = (revealedLetters.length + 1) * step;
+    bgMusic.volume = Math.min(volume, 1);
+    if (revealedLetters.length === 0) {
+        bgMusic.play().catch(() => {});
     }
     
     // Get unrevealed letters
