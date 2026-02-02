@@ -197,6 +197,19 @@ body {
     display: block;
 }
 
+.logo.bump {
+    animation: logoBump 0.2s ease-in-out;
+}
+
+@keyframes logoBump {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.025);
+    }
+}
+
 .party-details {
     color: #ffffff;
     font-size: 32px;
