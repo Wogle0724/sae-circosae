@@ -41,7 +41,7 @@ body {
     user-select: none;
 }
 .prompt.hidden {
-    display: none;
+    opacity: 0;
 }
 
 @keyframes blink {
