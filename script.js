@@ -30,6 +30,9 @@ function handleClick() {
     bgMusic.volume = Math.min(volume, 1);
     if (revealedLetters.length === 0) {
         bgMusic.play().catch(() => {});
+        setTimeout(() => {
+            prompt.textContent = "keep clicking";
+        }, 1000);
     }
     
     // Get unrevealed letters
