@@ -42,6 +42,7 @@ body {
 }
 .prompt.hidden {
     opacity: 0;
+    visibility: hidden;
 }
 
 @keyframes blink {
