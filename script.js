@@ -19,11 +19,6 @@ let logoBeatIntervalId = null;
 document.addEventListener('click', handleClick);
 
 function handleClick() {
-    // Hide prompt after first click
-    if (!prompt.classList.contains('hidden')) {
-        prompt.classList.add('hidden');
-    }
-    
     // Check if all letters are revealed
     if (revealedLetters.length >= letters.length) {
         return; // Do nothing if all letters are already revealed
@@ -51,9 +46,12 @@ function handleClick() {
     // Reveal the letter
     revealLetter(selectedLetter);
     
+    
     // Check if all letters are now revealed
     if (revealedLetters.length === letters.length) {
-        // Wait 2 seconds, then trigger airplane animation
+        prompt.classList.add('hidden');
+
+        // Wait 3 seconds, then trigger airplane animation
         setTimeout(() => {
             triggerAirplaneAnimation();
         }, 3000);

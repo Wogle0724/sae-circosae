@@ -7,15 +7,13 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Shadows+Into+Light&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <!-- Initial click prompt -->
-        <div class="prompt" id="prompt">click to reveal</div>
-        
-        <!-- Letters container -->
-        <div class="letters-container" id="lettersContainer">
+        <div class="center-content">
+            <!-- Letters container -->
+            <div class="letters-container" id="lettersContainer">
             <div class="letter-group letter-group-circo">
                 <div class="letter-slot" data-letter="C1">
                     <img src="images/C1.png" alt="C" class="letter-img" id="letter-C1">
@@ -44,6 +42,9 @@
                     <img src="images/E.png" alt="E" class="letter-img" id="letter-E">
                 </div>
             </div>
+        </div>
+            <!-- Click to reveal prompt (below letters, stays visible) -->
+            <div class="prompt" id="prompt">click to reveal</div>
         </div>
         
         <!-- Airplane -->
