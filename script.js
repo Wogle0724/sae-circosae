@@ -224,7 +224,9 @@ function renderSongResults(tracks) {
 
 function updateSelectedTrack(track) {
     selectedTrack = track;
-    songQueryInput.value = track ? `${track.name} - ${track.artist}` : '';
+    if (selectedTrack) {
+        songQueryInput.value = track ? `${track.name} - ${track.artist}` : '';
+    }
     songResults.innerHTML = '';
     setSubmitVisible(!!track);
 }
