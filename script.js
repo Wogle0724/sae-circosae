@@ -10,10 +10,8 @@ const finalReveal = document.getElementById('finalReveal');
 const bgMusic = document.getElementById('bgMusic');
 const logoImg = document.querySelector('#finalReveal .logo');
 const songQueryInput = document.getElementById('songQuery');
-const songClearBtn = document.querySelector('.song-clear');
-const songStatus = document.getElementById('songStatus');
 const songResults = document.getElementById('songResults');
-const songSelectionLink = document.getElementById('songSelectionLink');
+const songSubmit = document.getElementById('songSubmit');
 
 const BPM = 131;
 const BEAT_INTERVAL_MS = (60 / BPM) * 1000;
@@ -136,33 +134,21 @@ function startLogoBeatBump() {
 }
 
 function initSongSearch() {
-    if (!songQueryInput || !songResults || !songStatus || !songSelectionLink) return;
+    if (!songQueryInput || !songResults || !songSubmit) return;
 
     songQueryInput.addEventListener('input', () => {
         const query = songQueryInput.value.trim();
         clearTimeout(searchTimeoutId);
         if (query.length < 2) {
+            clearSongResults();
+            updateSelectedTrack(null);
             return;
         }
-        setSongStatus('searching...');
+        updateSelectedTrack(null);
         searchTimeoutId = setTimeout(() => {
             searchSpotify(query);
         }, 350);
     });
-
-    if (songClearBtn) {
-        songClearBtn.addEventListener('click', () => {
-            songQueryInput.value = '';
-            clearSongResults();
-            setSongStatus('');
-            updateSelectedTrack(null);
-        });
-    }
-}
-
-function setSongStatus(message) {
-    if (!songStatus) return;
-    songStatus.textContent = message;
 }
 
 function clearSongResults() {
@@ -193,7 +179,6 @@ async function searchSpotify(query) {
 function renderSongResults(tracks) {
     clearSongResults();
     if (!tracks.length) {
-        setSongStatus('no matches found');
         return;
     }
 
@@ -236,12 +221,10 @@ function renderSongResults(tracks) {
 
 function updateSelectedTrack(track) {
     selectedTrack = track;
-    if (!songSelectionLink) return;
-    if (!track) {
-        songSelectionLink.textContent = 'none';
-        songSelectionLink.href = '#';
-        return;
-    }
-    songSelectionLink.textContent = `${track.name} - ${track.artist}`;
-    songSelectionLink.href = track.spotifyUrl || '#';
+    setSubmitVisible(!!track);
+}
+
+function setSubmitVisible(isVisible) {
+    if (!songSubmit) return;
+    songSubmit.classList.toggle('visible', isVisible);
 }

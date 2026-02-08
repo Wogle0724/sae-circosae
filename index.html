@@ -59,17 +59,11 @@
                 <div class="detail">10:15pm</div>
                 <div class="detail">House 6</div>
                 <div class="song-request">
-                    <label class="song-label" for="songQuery">song request</label>
                     <div class="song-search">
-                        <input id="songQuery" class="song-input" type="search" placeholder="search Spotify" autocomplete="off">
-                        <button class="song-clear" type="button">clear</button>
+                        <input id="songQuery" class="song-input" type="text" placeholder="Song Request" autocomplete="off">
                     </div>
-                    <div class="song-status" id="songStatus" aria-live="polite"></div>
                     <ul class="song-results" id="songResults"></ul>
-                    <div class="song-selection" id="songSelection">
-                        <span class="song-selection-label">selected</span>
-                        <a class="song-selection-link" id="songSelectionLink" href="#" target="_blank" rel="noopener">none</a>
-                    </div>
+                    <button class="song-submit" id="songSubmit" type="button">submit</button>
                 </div>
             </div>
         </div>
