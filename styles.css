@@ -265,7 +265,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    height: 180px;
+    height: 125px;
     overflow-y: auto;
     overscroll-behavior: contain;
     position: fixed;
@@ -273,6 +273,11 @@ body {
     left: 50%;
     transform: translateX(-50%);
     z-index: 30;
+}
+
+.song-results:empty {
+    height: 0;
+    pointer-events: none;
 }
 
 .song-result {
