@@ -9,14 +9,23 @@ const airplane = document.getElementById('airplane');
 const finalReveal = document.getElementById('finalReveal');
 const bgMusic = document.getElementById('bgMusic');
 const logoImg = document.querySelector('#finalReveal .logo');
+const songQueryInput = document.getElementById('songQuery');
+const songClearBtn = document.querySelector('.song-clear');
+const songStatus = document.getElementById('songStatus');
+const songResults = document.getElementById('songResults');
+const songSelectionLink = document.getElementById('songSelectionLink');
 
 const BPM = 131;
 const BEAT_INTERVAL_MS = (60 / BPM) * 1000;
 const BUMP_DURATION_MS = 200;
 let logoBeatIntervalId = null;
+let searchTimeoutId = null;
+let activeSearchController = null;
+let selectedTrack = null;
 
 // Click handler
 document.addEventListener('click', handleClick);
+initSongSearch();
 
 function handleClick() {
     // Check if all letters are revealed
@@ -124,4 +133,115 @@ function startLogoBeatBump() {
     } else {
         scheduleNextBeat();
     }
+}
+
+function initSongSearch() {
+    if (!songQueryInput || !songResults || !songStatus || !songSelectionLink) return;
+
+    songQueryInput.addEventListener('input', () => {
+        const query = songQueryInput.value.trim();
+        clearTimeout(searchTimeoutId);
+        if (query.length < 2) {
+            return;
+        }
+        setSongStatus('searching...');
+        searchTimeoutId = setTimeout(() => {
+            searchSpotify(query);
+        }, 350);
+    });
+
+    if (songClearBtn) {
+        songClearBtn.addEventListener('click', () => {
+            songQueryInput.value = '';
+            clearSongResults();
+            setSongStatus('');
+            updateSelectedTrack(null);
+        });
+    }
+}
+
+function setSongStatus(message) {
+    if (!songStatus) return;
+    songStatus.textContent = message;
+}
+
+function clearSongResults() {
+    if (!songResults) return;
+    songResults.innerHTML = '';
+}
+
+async function searchSpotify(query) {
+    if (!songResults) return;
+    if (activeSearchController) activeSearchController.abort();
+    activeSearchController = new AbortController();
+
+    try {
+        const response = await fetch(`/api/spotify-search?q=${encodeURIComponent(query)}`,
+            { signal: activeSearchController.signal }
+        );
+        if (!response.ok) {
+            throw new Error('spotify search failed');
+        }
+        const data = await response.json();
+        renderSongResults(data.tracks || []);
+    } catch (error) {
+        if (error.name === 'AbortError') return;
+        clearSongResults();
+    }
+}
+
+function renderSongResults(tracks) {
+    clearSongResults();
+    if (!tracks.length) {
+        setSongStatus('no matches found');
+        return;
+    }
+
+    tracks.forEach((track) => {
+        const item = document.createElement('li');
+        item.className = 'song-result';
+
+        const cover = document.createElement('img');
+        cover.className = 'song-cover';
+        cover.alt = `${track.name} cover`;
+        cover.src = track.coverUrl || '';
+
+        const meta = document.createElement('div');
+        meta.className = 'song-meta';
+
+        const title = document.createElement('div');
+        title.className = 'song-title';
+        title.textContent = track.name;
+
+        const artist = document.createElement('div');
+        artist.className = 'song-artist';
+        artist.textContent = track.artist;
+
+        const pickButton = document.createElement('button');
+        pickButton.className = 'song-pick';
+        pickButton.type = 'button';
+        pickButton.textContent = 'select';
+        pickButton.addEventListener('click', () => {
+            updateSelectedTrack(track);
+        });
+
+        meta.appendChild(title);
+        meta.appendChild(artist);
+        item.appendChild(cover);
+        item.appendChild(meta);
+        item.appendChild(pickButton);
+        songResults.appendChild(item);
+    });
+}
+
+function updateSelectedTrack(track) {
+    selectedTrack = track;
+    if (!songSelectionLink) return;
+    if (!track) {
+        songSelectionLink.textContent = 'none';
+        songSelectionLink.href = '#';
+        return;
+    }
+    songSelectionLink.textContent = `${track.name} - ${track.artist}`;
+    songSelectionLink.href = track.spotifyUrl || '#';
 }

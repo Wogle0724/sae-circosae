@@ -47,10 +47,10 @@
             <!-- Click to reveal prompt (below letters, stays visible) -->
             <div class="prompt" id="prompt">click to reveal</div>
         </div>
-        
+
         <!-- Airplane -->
         <img src="images/airplane.png" alt="Airplane" class="airplane" id="airplane">
-        
+
         <!-- Final reveal section -->
         <div class="final-reveal" id="finalReveal">
             <img src="images/logo.png" alt="CIRCOSAE Logo" class="logo">
@@ -58,12 +58,25 @@
                 <div class="detail">5th February 2026</div>
                 <div class="detail">10:15pm</div>
                 <div class="detail">House 6</div>
+                <div class="song-request">
+                    <label class="song-label" for="songQuery">song request</label>
+                    <div class="song-search">
+                        <input id="songQuery" class="song-input" type="search" placeholder="search Spotify" autocomplete="off">
+                        <button class="song-clear" type="button">clear</button>
+                    </div>
+                    <div class="song-status" id="songStatus" aria-live="polite"></div>
+                    <ul class="song-results" id="songResults"></ul>
+                    <div class="song-selection" id="songSelection">
+                        <span class="song-selection-label">selected</span>
+                        <a class="song-selection-link" id="songSelectionLink" href="#" target="_blank" rel="noopener">none</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
+
     <audio id="bgMusic" src="song.mp3" preload="auto"></audio>
-    
+
     <!-- Vercel Web Analytics -->
     <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
     <script defer src="/_vercel/insights/script.js"></script>
