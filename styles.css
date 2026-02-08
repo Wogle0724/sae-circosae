@@ -233,6 +233,7 @@ body {
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    position: relative;
 }
 
 .song-search {
@@ -265,11 +266,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    height: 50vh;
+    height: 40vh;
     overflow-y: auto;
     overscroll-behavior: contain;
-    position: fixed;
-    bottom: 6vh;
+    position: absolute;
+    bottom: calc(100% + 10px);
     left: 50%;
     transform: translateX(-50%);
     z-index: 30;
@@ -456,7 +457,6 @@ body {
 
     .song-results {
         width: min(300px, 80vw);
-        height: 50vh;
-        bottom: 4vh;
+        height: 35vh;
     }
 }
