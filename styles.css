@@ -265,7 +265,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    height: 125px;
+    height: 180px;
     overflow-y: auto;
     overscroll-behavior: contain;
     position: fixed;
@@ -273,6 +273,13 @@ body {
     left: 50%;
     transform: translateX(-50%);
     z-index: 30;
+    padding: 8px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.12), 0 0 40px rgba(255, 255, 255, 0.08);
 }
 
 .song-results:empty {
