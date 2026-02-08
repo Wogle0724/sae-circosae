@@ -277,13 +277,19 @@ body {
     border-radius: 16px;
     background: rgba(0, 0, 0, 0.35);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     box-shadow: 0 0 18px rgba(255, 255, 255, 0.12), 0 0 40px rgba(255, 255, 255, 0.08);
 }
 
 .song-results:empty {
     height: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     pointer-events: none;
 }
 
