@@ -137,14 +137,22 @@ function initSongSearch() {
     if (!songQueryInput || !songResults || !songSubmit) return;
 
     songQueryInput.addEventListener('input', () => {
-        const query = songQueryInput.value.trim();
+        const rawQuery = songQueryInput.value;
         clearTimeout(searchTimeoutId);
+
+        if (selectedTrack) {
+            const selectedLabel = getTrackLabel(selectedTrack);
+            if (rawQuery !== selectedLabel) {
+                selectedTrack = null;
+                setSubmitVisible(false);
+            }
+        }
+
+        const query = rawQuery.trim();
         if (query.length < 2) {
             clearSongResults();
-            updateSelectedTrack(null);
             return;
         }
-        updateSelectedTrack(null);
         searchTimeoutId = setTimeout(() => {
             searchSpotify(query);
         }, 350);
@@ -225,10 +233,14 @@ function renderSongResults(tracks) {
 function updateSelectedTrack(track) {
     selectedTrack = track;
     if (selectedTrack) {
-        songQueryInput.value = track ? `${track.name} - ${track.artist}` : '';
+        songQueryInput.value = getTrackLabel(track);
     }
-    songResults.innerHTML = '';
+    clearSongResults();
     setSubmitVisible(!!track);
+}
+
+function getTrackLabel(track) {
+    return `${track.name} - ${track.artist}`;
 }
 
 function setSubmitVisible(isVisible) {
