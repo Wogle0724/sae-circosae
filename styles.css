@@ -265,9 +265,14 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    height: 220px;
+    height: 180px;
     overflow-y: auto;
     overscroll-behavior: contain;
+    position: fixed;
+    bottom: 6vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
 }
 
 .song-result {
@@ -431,6 +436,7 @@ body {
 
     .song-results {
         width: min(300px, 80vw);
-        height: 180px;
+        height: 160px;
+        bottom: 4vh;
     }
 }
