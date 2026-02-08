@@ -12,6 +12,8 @@ const logoImg = document.querySelector('#finalReveal .logo');
 const songQueryInput = document.getElementById('songQuery');
 const songResults = document.getElementById('songResults');
 const songSubmit = document.getElementById('songSubmit');
+const SUBMIT_IDLE_LABEL = 'submit';
+const SUBMIT_DONE_LABEL = 'submitted!';
 
 const BPM = 131;
 const BEAT_INTERVAL_MS = (60 / BPM) * 1000;
@@ -140,12 +142,20 @@ function initSongSearch() {
         const rawQuery = songQueryInput.value;
         clearTimeout(searchTimeoutId);
 
+        if (songSubmit.classList.contains('submitted')) {
+            setSubmitState('idle');
+        }
+
         if (selectedTrack) {
             const selectedLabel = getTrackLabel(selectedTrack);
             if (rawQuery !== selectedLabel) {
                 selectedTrack = null;
                 setSubmitVisible(false);
             }
+        }
+
+        if (!selectedTrack) {
+            setSubmitVisible(false);
         }
 
         const query = rawQuery.trim();
@@ -156,6 +166,14 @@ function initSongSearch() {
         searchTimeoutId = setTimeout(() => {
             searchSpotify(query);
         }, 350);
+    });
+
+    songSubmit.addEventListener('click', () => {
+        if (!selectedTrack) return;
+        setSubmitState('submitted');
+        selectedTrack = null;
+        songQueryInput.value = '';
+        clearSongResults();
     });
 }
 
@@ -194,8 +212,12 @@ function renderSongResults(tracks) {
     }
 
     tracks.forEach((track) => {
-        const item = document.createElement('li');
+        const item = document.createElement('button');
         item.className = 'song-result';
+        item.type = 'button';
+        item.addEventListener('click', () => {
+            updateSelectedTrack(track);
+        });
 
         const cover = document.createElement('img');
         cover.className = 'song-cover';
@@ -213,19 +235,10 @@ function renderSongResults(tracks) {
         artist.className = 'song-artist';
         artist.textContent = track.artist.length > 25 ? track.artist.substring(0, 25) + '...' : track.artist;
 
-        const pickButton = document.createElement('button');
-        pickButton.className = 'song-pick';
-        pickButton.type = 'button';
-        pickButton.textContent = 'select';
-        pickButton.addEventListener('click', () => {
-            updateSelectedTrack(track);
-        });
-
         meta.appendChild(title);
         meta.appendChild(artist);
         item.appendChild(cover);
         item.appendChild(meta);
-        item.appendChild(pickButton);
         songResults.appendChild(item);
     });
 }
@@ -237,6 +250,9 @@ function updateSelectedTrack(track) {
     }
     clearSongResults();
     setSubmitVisible(!!track);
+    if (track) {
+        setSubmitState('idle');
+    }
 }
 
 function getTrackLabel(track) {
@@ -246,4 +262,18 @@ function getTrackLabel(track) {
 function setSubmitVisible(isVisible) {
     if (!songSubmit) return;
     songSubmit.classList.toggle('visible', isVisible);
+}
+
+function setSubmitState(state) {
+    if (!songSubmit) return;
+    if (state === 'submitted') {
+        songSubmit.textContent = SUBMIT_DONE_LABEL;
+        songSubmit.classList.add('submitted');
+        songSubmit.disabled = true;
+        setSubmitVisible(true);
+        return;
+    }
+    songSubmit.textContent = SUBMIT_IDLE_LABEL;
+    songSubmit.classList.remove('submitted');
+    songSubmit.disabled = false;
 }

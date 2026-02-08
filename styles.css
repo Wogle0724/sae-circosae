@@ -265,6 +265,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    height: 220px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
 .song-result {
@@ -276,6 +279,20 @@ body {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
     height: min(10vh, 50px);
+    width: 100%;
+    text-align: left;
+    color: #ffffff;
+    font-family: 'Permanent Marker', cursive;
+    cursor: pointer;
+}
+
+.song-result:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.song-result:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 2px;
 }
 
 .song-cover {
@@ -301,17 +318,6 @@ body {
     text-transform: lowercase;
 }
 
-.song-pick {
-    padding: 6px 12px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    background: rgba(255, 255, 255, 0.12);
-    color: #ffffff;
-    font-size: 12px;
-    text-transform: lowercase;
-    cursor: pointer;
-}
-
 .song-submit {
     margin-top: 6px;
     padding: 8px 18px;
@@ -333,6 +339,12 @@ body {
 .song-submit.visible {
     opacity: 1;
     pointer-events: auto;
+    transform: translateY(0);
+}
+
+.song-submit.submitted {
+    opacity: 1;
+    pointer-events: none;
     transform: translateY(0);
 }
 
@@ -419,5 +431,6 @@ body {
 
     .song-results {
         width: min(300px, 80vw);
+        height: 180px;
     }
 }
