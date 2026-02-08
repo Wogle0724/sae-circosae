@@ -286,9 +286,7 @@ body {
 }
 
 .song-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: grid;
     flex: 1;
 }
 

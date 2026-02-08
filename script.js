@@ -181,6 +181,9 @@ function renderSongResults(tracks) {
     if (!tracks.length) {
         return;
     }
+    else {
+        tracks = tracks.slice(0, 5);
+    }
 
     tracks.forEach((track) => {
         const item = document.createElement('li');
@@ -196,11 +199,11 @@ function renderSongResults(tracks) {
 
         const title = document.createElement('div');
         title.className = 'song-title';
-        title.textContent = track.name.length > 35 ? track.name.substring(0, 35) + '...' : track.name;
+        title.textContent = track.name.length > 25 ? track.name.substring(0, 25) + '...' : track.name;
 
         const artist = document.createElement('div');
         artist.className = 'song-artist';
-        artist.textContent = track.artist;
+        artist.textContent = track.artist.length > 25 ? track.artist.substring(0, 25) + '...' : track.artist;
 
         const pickButton = document.createElement('button');
         pickButton.className = 'song-pick';
@@ -221,6 +224,8 @@ function renderSongResults(tracks) {
 
 function updateSelectedTrack(track) {
     selectedTrack = track;
+    songQueryInput.value = track ? `${track.name} - ${track.artist}` : '';
+    songResults.innerHTML = '';
     setSubmitVisible(!!track);
 }
 
