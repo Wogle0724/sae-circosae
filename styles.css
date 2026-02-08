@@ -261,10 +261,10 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
-    width: min(420px, 80vw);
+    width: min(350px, 80vw);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
 }
 
 .song-result {
@@ -272,9 +272,10 @@ body {
     gap: 12px;
     align-items: center;
     padding: 8px 12px;
-    border-radius: 16px;
+    border-radius: 10px;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
+    height: min(10vh, 50px);
 }
 
 .song-cover {
@@ -286,19 +287,18 @@ body {
 
 .song-meta {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
+    align-items: center;
+    gap: 8px;
     flex: 1;
 }
 
 .song-title {
-    font-size: 16px;
+    font-size: 12px;
     letter-spacing: 0.3px;
 }
 
 .song-artist {
-    font-size: 13px;
+    font-size: 12px;
     opacity: 0.7;
     text-transform: lowercase;
 }

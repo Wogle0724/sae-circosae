@@ -196,7 +196,7 @@ function renderSongResults(tracks) {
 
         const title = document.createElement('div');
         title.className = 'song-title';
-        title.textContent = track.name;
+        title.textContent = track.name.length > 35 ? track.name.substring(0, 35) + '...' : track.name;
 
         const artist = document.createElement('div');
         artist.className = 'song-artist';
